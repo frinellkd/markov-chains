@@ -1,12 +1,14 @@
 import sys
 import random
 
+text_source = sys.argv[1]
 
-def make_chains(filepath):
+
+def make_chains(text_source):
     """Takes input text as string; returns dictionary of markov chains."""
 
     # Open the file at the file path provided
-    open_file = open(filepath)
+    open_file = open(text_source)
 
     # Reads the files and returns the file text as one long string
     body_string = open_file.read()
@@ -40,19 +42,20 @@ def make_chains(filepath):
 
     return markov_pairs
 
-green_dict = make_chains("green-eggs.txt")
+dictionary = make_chains(text_source)
 
 def make_text(dictionary):
     """Takes dictionary of markov chains; returns random text."""
-    
-    sentence = ""
+
+    goofy_sentence = ""
 
     # select a random word
     first_key = random.choice(dictionary.keys())
-        
+    
+    # Run as long as key is in the dicitonary    
     while first_key in dictionary:
         
-        sentence += first_key[0] + " "
+        goofy_sentence += first_key[0] + " "
         
         # go back to dictionary, find values of the key that we returned
         # randomly select word from that list
@@ -60,15 +63,13 @@ def make_text(dictionary):
         
 
         # find key that starts with next_word and assigns it to first key to loop around
-
         first_key = (first_key[1],next_word) 
         
 
-    print sentence
+    return goofy_sentence
 
 
-make_text(green_dict)
-     #return "Here's some random text."
+print make_text(dictionary)
 
 
 # # Change this to read input_text from a file, deciding which file should
