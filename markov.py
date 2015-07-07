@@ -7,23 +7,27 @@ def make_chains(corpus):
     body_text = open(corpus)
 
     body_string = ""
-    
+
     for line in body_text:
         # concatenate all the lines together  
         line = line.rstrip()
-        body_string = body_string + line + " "
+        body_string = body_string + " " + line
 
-    word_list = body_string.split(" ")
+    word_list = body_string.split()
 
     markov_pairs = {}
 
-    for i in range(len(word_list) - 1):
+    for i in range(len(word_list) - 2):
         pair = word_list[i], word_list[i+1]
-        markov_pairs[pair] = None
+        if pair in markov_pairs:
+            markov_pairs[pair].append(word_list[i+2])
+        else:
+            markov_pairs[pair] = [word_list[i+2]]    
+        
+    for keys, value in markov_pairs.items():
+        print keys, value
 
-    print markov_pairs
-
-print make_chains("green-eggs.txt")
+make_chains("green-eggs.txt")
 
 # def make_text(chains):
 #     """Takes dictionary of markov chains; returns random text."""
