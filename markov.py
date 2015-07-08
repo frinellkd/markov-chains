@@ -47,22 +47,31 @@ dictionary = make_chains(text_source)
 def make_text(dictionary):
     """Takes dictionary of markov chains; returns random text."""
 
-    goofy_sentence = ""
+    
 
     # select a random word
     first_key = random.choice(dictionary.keys())
     
+    # Start sentence with both words in first key
+    goofy_sentence = first_key[0] + " " + first_key[1]
+
+    
     # Run as long as key is in the dicitonary    
     while first_key in dictionary:
-        
-        goofy_sentence += first_key[0] + " "
-        
+
         # go back to dictionary, find values of the key that we returned
         # randomly select word from that list
         next_word = random.choice(dictionary[first_key])
-        
 
-        # find key that starts with next_word and assigns it to first key to loop around
+        # add that randomly selected word to the sentence
+        goofy_sentence += " " + next_word
+
+        # find key that starts with the second value in first_word and the randomly selected
+        # then assigns it to first key to continue loop
+        # ex:
+            # first_key ('Would', 'you')
+            # next_word ('could')
+            # --> first_key ('you', 'could')
         first_key = (first_key[1],next_word) 
         
 
@@ -70,18 +79,3 @@ def make_text(dictionary):
 
 
 print make_text(dictionary)
-
-
-# # Change this to read input_text from a file, deciding which file should
-# # be used by examining the `sys.argv` arguments (if neccessary, see the
-# # Python docs for sys.argv)
-
-# input_text = "Some text"
-
-# # Get a Markov chain
-# chain_dict = make_chains(input_text)
-
-# # Produce random text
-# random_text = make_text(chain_dict)
-
-# print random_text
