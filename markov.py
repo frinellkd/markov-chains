@@ -75,7 +75,19 @@ def make_text(dictionary):
         first_key = (first_key[1],next_word) 
         
 
-    return goofy_sentence
+    lower_goofy = goofy_sentence.lower()
+    lower_goofy_cap = lower_goofy.capitalize()
+    
+    end_sent_punc = ["!", "." , "?"]
+    punc_count_period = lower_goofy.count(".")
+    punc_count_ques = lower_goofy.count("?")
+
+
+    print lower_goofy_cap
+    print end_sent_punc
+    print punc_count_period
+    print punc_count_ques
+    
 
 
 print make_text(dictionary)
